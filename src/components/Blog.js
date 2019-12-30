@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Route, Link, Redirect, withRouter
+} from 'react-router-dom'
 
 
 const Blog = ({ blog, updateLikes, deleteBlog }) => {
@@ -23,14 +27,16 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
     display: 'none'
   }
 */
+  if(blog === undefined){
+    return null
+  }
+
   if (blogVisible === true) {
-
     return (
-
-
       <div style={blogStyle} onClick={toggleVisibility} id={blog._id}>
 
-        {blog.title} {blog.author} <br />
+        <Link to={`blogs/${blog.id}`}>{blog.title}</Link>
+        <p>Author: {blog.author}</p>
         {blog.url} <br />
         {blog.likes}
 
@@ -40,17 +46,14 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
         <button type="submit" onClick={deleteBlog}> Delete blog </button><br />
 
       </div>
-
-
     )
   }
+
   return (
     <div>
       <div style={blogStyle}>
         <div onClick={toggleVisibility} >
-
           {blog.title} {blog.author}
-
         </div>
       </div>
     </div>
